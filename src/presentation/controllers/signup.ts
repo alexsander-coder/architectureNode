@@ -7,7 +7,7 @@ import { InvalidParamError } from "../errors/invalid-param-error"
 export class SignUpController implements Controller {
   private readonly emailValidator: EmailValidator
 
-  constructor(emailValidator: EmailValidator){
+  constructor(emailValidator: EmailValidator) {
     this.emailValidator = emailValidator
   }
 
@@ -15,14 +15,14 @@ export class SignUpController implements Controller {
 
     const requiredFields = ['name', 'email', 'password', 'passwordConfirmation']
 
-    for(const field of requiredFields){
-      if(!httpRequest.body[field]){
+    for (const field of requiredFields) {
+      if (!httpRequest.body[field]) {
         return badRequest(new MissingParamError(field))
       }
     }
 
-  const isValid = this.emailValidator.isValid(httpRequest.body.email)
-    if(!isValid){
+    const isValid = this.emailValidator.isValid(httpRequest.body.email)
+    if (!isValid) {
       return badRequest(new InvalidParamError('email'))
     }
   }
